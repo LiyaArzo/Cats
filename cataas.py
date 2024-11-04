@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import ttk
 from PIL import Image, ImageTk
 import requests
 from io import BytesIO #importoutput
@@ -17,7 +18,7 @@ def loade_image(url):
 
 
 def open_new_window():
-    tag = tag_entry.get()
+    tag = tag_choose.get()
     url_tag = f'https://cataas.com/cat/{tag}' if tag else 'https://cataas.com/cat'
     img = loade_image(url_tag)
 
@@ -33,7 +34,6 @@ def open_new_window():
 def exit():
     window.destroy()
 
-url = 'https://cataas.com/cat'
 
 window = Tk()
 window.title('Cats')
@@ -48,10 +48,20 @@ filemenu.add_command(label="Новый котик", command=open_new_window)
 filemenu.add_separator() # разделяющая линия
 filemenu.add_command(label="Выход", command=exit)
 
-tag_entry = Entry()
-tag_entry.pack()
+url = 'https://cataas.com/cat'
+
+tegs = ['black','babycat','Halloween','couple','crazy','white','summer','scared','jumping','laughing','dance','begging','Curious','Hiding','Oriental','New Year']
+tegs.sort()
+
+tag_label = Label(text='Выбери тег')
+tag_label.pack()
+
+tag_choose = ttk.Combobox(values=tegs)
+tag_choose.pack()
 
 load_button = Button(text='Загрузить по тегу', command=open_new_window)
 load_button.pack()
+
+
 
 window.mainloop()
