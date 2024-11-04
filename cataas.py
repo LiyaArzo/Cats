@@ -16,11 +16,15 @@ def loade_image(url):
         return None
 
 
-def set_image():
+def open_new_window():
     img = loade_image(url)
 
     if img:
-        label.config(image=img)
+        new_window = Toplevel()
+        new_window.title('Картинка с котиком')
+        new_window.geometry('600x480')
+        label = Label(new_window, image=img)
+        label.pack()
         label.image = img  # чтобы сборщик мусора не убрал картинку
 
 
@@ -37,17 +41,15 @@ window.config(menu=mainmenu)
 
 filemenu = Menu(mainmenu, tearoff=0) # tearoff меню предопределено, его нельзя менять
 mainmenu.add_cascade(label="Файл", menu=filemenu) # название меню
-filemenu.add_command(label="Новый котик", command=set_image)
+filemenu.add_command(label="Новый котик", command=open_new_window)
 filemenu.add_separator() # разделяющая линия
 filemenu.add_command(label="Выход", command=exit)
 
 
 
 
-label = Label()
-label.pack()
 
 url = 'https://cataas.com/cat'
-set_image()
+
 
 window.mainloop()
